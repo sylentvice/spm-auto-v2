@@ -22,18 +22,18 @@ print(f"🤖 Logged in as @{my_username} (ID: {me_id})")
 
 # ✅ Message reply templates (edit if you want)
 reply_templates_master = [
-    """ARJUN RNDY_________________//💙
-ARJUN RNDY_________________//🩷
-ARJUN RNDY_________________//💚
-ARJUN RNDY_________________//💙
-ARJUN RNDY_________________//💔
-ARJUN RNDY_________________//❤️‍🩹
-ARJUN RNDY_________________//🎀
-ARJUN RNDY_________________//💜
-ARJUN RNDY_________________//🦢
-ARJUN RNDY_________________//☃️""",
-"""ARJUN TMKC_________________//🩷
-ARJUN TMKC_________________//🩷
+    """ARJUN RNDY______________________________________________________//💙
+ARJUN RNDY____________________________________________________________//🩷
+ARJUN RNDY___________________________________________________________//💚
+ARJUN RNDY__________________________________________________________//💙
+ARJUN RNDY_________________________________________________________//💔
+ARJUN RNDY________________________________________________________//❤️‍🩹
+ARJUN RNDY_______________________________________________________//🎀
+ARJUN RNDY______________________________________________________//💜
+ARJUN RNDY_____________________________________________________//🦢
+ARJUN RNDY____________________________________________________//☃️""",
+"""ARJUN TMKC_______________//🩷
+ARJUN TMKC__________________//🩷
 ARJUN TMKC_________________//🩷
 ARJUN TMKC_________________//🩷
 ARJUN TMKC_________________//🩷
@@ -100,11 +100,11 @@ def auto_reply():
                     cl.direct_answer(thread.id, reply)
                     print(f"✔️ Replied to @{username}: {reply}")
                     last_msg_id_by_user[user_id] = latest_msg.id
-                    time.sleep(random.randint(11, 22))
+                    time.sleep(15)
                 except Exception as e:
                     print(f"⚠️ Failed to reply in thread {thread.id}: {e}")
 
-            time.sleep(random.randint(12, 23))
+            time.sleep(15)
 
         except Exception as err:
             print(f"🚨 Main loop error: {err}")
