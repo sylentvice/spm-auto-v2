@@ -1,12 +1,20 @@
 from instagrapi import Client
 import time
 import random
+import os
 from keep_alive import keep_alive
 
+# Start keep alive (optional for worker, safe to keep)
 keep_alive()
 
+# 🔐 Get session ID from environment variable
+SESSION_ID = os.getenv("IG_SESSION_ID")
+
+if not SESSION_ID:
+    raise Exception("❌ IG_SESSION_ID not found in environment variables")
+
 cl = Client()
-cl.login_by_sessionid("78088994566%3AxHZpllXTdpGN5y%3A20%3AAYiN58LFJXsjUUho183CpPldsmLu3M8i9fEpvjdAxA")  # 🔐 Apna session ID daalo
+cl.login_by_sessionid(SESSION_ID)
 
 me_id = cl.user_id
 my_username = cl.username
