@@ -2,3 +2,4 @@ instagrapi
 pillow
 flask
 gunicorn
+requests
