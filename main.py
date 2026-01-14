@@ -87,7 +87,7 @@ def get_next_reply(username, history):
 # ----------------------------
 # AUTO GC NAME RESET
 # ----------------------------
-LOCKED_GC_NAME = "🔥 DO NOT CHANGE 🔥"
+LOCKED_GC_NAME = "🔥 ARJUN KI MA CUDI AXLE SE 🔥"
 
 def enforce_gc_name(thread):
     try:
