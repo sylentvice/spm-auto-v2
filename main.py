@@ -4,10 +4,8 @@ import random
 import os
 from keep_alive import keep_alive
 
-# Start keep alive (optional for worker, safe to keep)
 keep_alive()
 
-# 🔐 Get session ID from environment variable
 SESSION_ID = os.getenv("IG_SESSION_ID")
 
 if not SESSION_ID:
@@ -20,80 +18,21 @@ me_id = cl.user_id
 my_username = cl.username
 print(f"🤖 Logged in as @{my_username} (ID: {me_id})")
 
-# ✅ Message reply templates (edit if you want)
 reply_templates_master = [
-    """ARJUN GARIB____________________________________________________________//💙
-    
-ARJUN GARIB_____________________________________________________________//🩷
-
-ARJUN GARIB_____________________________________________________________//💚
-
-ARJUN GARIB_____________________________________________________________//💙
-
-ARJUN GARIB_____________________________________________________________//💙
-
-ARJUN GARIB_____________________________________________________________//💔
-
-ARJUN GARIB_____________________________________________________________//🩷
-
-ARJUN GARIB_____________________________________________________________//💚
-
-ARJUN GARIB_____________________________________________________________//🎀
-
-ARJUN GARIB_____________________________________________________________//💜
-
-ARJUN GARIB_____________________________________________________________//🦢
-
-ARJUN GARIB_____________________________________________________________//☃️""",
-"""ARJUN TMKC__________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷
-
-ARJUN TMKC_________________//🩷"""
+    "BOLA NA MSG MT KR VRNA ARJUN KI MAA TERE SE V CUD JAYEGI",
+    "OYE MSG MT KR VRNA ARJUN KI MAA CUD JAYEGI"
 ]
 
-# 🧠 Maintain last message replied for each user
 last_msg_id_by_user = {}
 
-def get_next_reply(username, history):
-    # Filter replies jo already iss user ko bheje gaye ho
-    possible_replies = [r for r in reply_templates_master if r not in history]
-    if not possible_replies:
+def get_next_reply(history):
+    possible = [r for r in reply_templates_master if r not in history]
+    if not possible:
         history.clear()
-        possible_replies = reply_templates_master.copy()
-    reply = random.choice(possible_replies)
+        possible = reply_templates_master.copy()
+    reply = random.choice(possible)
     history.add(reply)
-    return reply.replace("{user}", username)
+    return reply
 
 user_reply_history = {}
 
@@ -108,37 +47,35 @@ def auto_reply():
 
                 latest_msg = thread.messages[0]
 
-                # Apna msg ignore karo
                 if latest_msg.user_id == me_id:
                     continue
 
                 user_id = latest_msg.user_id
                 username = cl.user_info(user_id).username
 
-                # Agar same msg pe already reply kar chuke ho, skip karo
                 if last_msg_id_by_user.get(user_id) == latest_msg.id:
                     continue
 
-                # User history init if not exists
                 if user_id not in user_reply_history:
                     user_reply_history[user_id] = set()
 
-                # 📨 Generate new random reply
-                reply = get_next_reply(username, user_reply_history[user_id])
+                reply = get_next_reply(user_reply_history[user_id])
+
+                # 👇 USERNAME MENTION ADDED
+                final_reply = f"@{username} {reply}"
 
                 try:
-                    cl.direct_answer(thread.id, reply)
-                    print(f"✔️ Replied to @{username}: {reply}")
+                    cl.direct_answer(thread.id, final_reply)
+                    print(f"✔️ Replied to @{username}: {final_reply}")
                     last_msg_id_by_user[user_id] = latest_msg.id
-                    time.sleep(0)
+                    time.sleep(random.randint(2, 6))
                 except Exception as e:
                     print(f"⚠️ Failed to reply in thread {thread.id}: {e}")
 
-            time.sleep(0)
+            time.sleep(random.randint(2, 6))
 
         except Exception as err:
             print(f"🚨 Main loop error: {err}")
             time.sleep(random.randint(25, 30))
 
-# 🚀 Start bot
 auto_reply()
